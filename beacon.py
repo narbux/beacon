@@ -17,8 +17,9 @@ async def beacon(request: Request):
     client = request.client
     if not client:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
-    logger.info(f"host: {client.host} | port: {client.port}")
-    return {"ok": client.host}
+    real_ip = request.headers.get("X-Forwarded-For")
+    logger.info(f"real: {real_ip} | host: {client.host} | port: {client.port}")
+    return {"ok": real_ip, "client": client.host}
 
 
 @app.get("/health")
