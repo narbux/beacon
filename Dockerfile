@@ -1,5 +1,7 @@
 FROM ghcr.io/astral-sh/uv:alpine3.23
 
+RUN apk --no-cache add curl
+
 ENV UV_NO_DEV=1
 
 WORKDIR /app
